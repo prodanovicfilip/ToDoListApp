@@ -39,11 +39,13 @@
             GV_List.AllowUserToAddRows = false;
             GV_List.AllowUserToDeleteRows = false;
             GV_List.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            GV_List.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            GV_List.BorderStyle = BorderStyle.Fixed3D;
             GV_List.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             GV_List.Location = new Point(3, 59);
             GV_List.Name = "GV_List";
             GV_List.ReadOnly = true;
-            GV_List.Size = new Size(1021, 486);
+            GV_List.Size = new Size(678, 299);
             GV_List.TabIndex = 0;
             // 
             // TB_Search
@@ -67,10 +69,12 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1022, 543);
+            ClientSize = new Size(684, 361);
             Controls.Add(BT_Search);
             Controls.Add(TB_Search);
             Controls.Add(GV_List);
+            MaximumSize = new Size(700, 700);
+            MinimumSize = new Size(700, 400);
             Name = "ViewToDo";
             Text = "ViewToDo";
             FormClosed += ViewToDo_FormClosed;

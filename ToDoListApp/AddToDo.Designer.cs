@@ -100,7 +100,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(584, 411);
             Controls.Add(BT_AddToList);
             Controls.Add(label3);
             Controls.Add(label2);
@@ -108,6 +108,8 @@
             Controls.Add(TB_Desc);
             Controls.Add(TB_Title);
             Controls.Add(DT_DeadLine);
+            MaximumSize = new Size(600, 450);
+            MinimumSize = new Size(600, 450);
             Name = "AddToDo";
             Text = "AddToDo";
             FormClosed += AddToDo_FormClosed;

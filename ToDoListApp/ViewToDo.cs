@@ -28,12 +28,12 @@ namespace ToDoListApp
 
         private void ViewToDo_Load(object sender, EventArgs e)
         {
+            _list = _context.GetAll().ToList();
             if (_context == null)
             {
                 MessageBox.Show("List empty");
                 return;
             }
-            _list = _context.GetAll();
             GV_List.DataSource = _list;
             ColorDates();
         }
@@ -64,9 +64,10 @@ namespace ToDoListApp
             if (string.IsNullOrEmpty(TB_Search.Text))
             {
                 GV_List.DataSource = _list;
+                ColorDates();
                 return;
             }
-            GV_List.DataSource = _list.Where(l => l.Title.Contains(TB_Search.Text)).ToList();
+            GV_List.DataSource = _list.Where(l => l.Title.Contains(TB_Search.Text) || l.Description.Contains(TB_Search.Text)).ToList();
             ColorDates();
         }
     }

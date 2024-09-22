@@ -8,17 +8,17 @@ using Microsoft.VisualBasic.ApplicationServices;
 
 namespace ToDoListApp.Models
 {
-    public class ToDoContext
+    public class ToDoContext : DbContext
     {
-        public List<ToDo> ToDoList = new List<ToDo>();
-        public void Add(ToDo entity)
-        {
-            if (entity == null) return;
-            ToDoList.Add(entity);
-        }
+        public DbSet<ToDo> ToDoList {  get; set; }
         public IEnumerable<ToDo> GetAll()
         {
             return ToDoList.ToList();
+        }
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlServer("Data Source=DESKTOP-EBPQHUK;Initial Catalog=ToDoListDB;Integrated Security=SSPI;TrustServerCertificate=True;");
+            base.OnConfiguring(optionsBuilder);
         }
     }
 }

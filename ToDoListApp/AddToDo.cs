@@ -14,11 +14,11 @@ namespace ToDoListApp
 {
     public partial class AddToDo : Form
     {
-        private readonly ToDoContext _Context;
-        public AddToDo(ToDoContext toDoContext)
+        private readonly ToDoContext _context;
+        public AddToDo(ToDoContext context)
         {
             InitializeComponent();
-            _Context = toDoContext;
+            _context = context;
         }
 
         private void AddToDo_FormClosed(object sender, FormClosedEventArgs e)
@@ -37,12 +37,11 @@ namespace ToDoListApp
                 return;
             }
             var entity = new ToDo();
-            entity.Id = ToDo.Count;
             entity.Title = title;
             entity.Description = desc;
             entity.Deadline = deadline;
-            _Context.ToDoList.Add(entity);
-            ToDo.Count++;
+            _context.ToDoList.Add(entity);
+            _context.SaveChanges();
             this.Close();
         }
     }

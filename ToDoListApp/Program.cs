@@ -10,10 +10,10 @@ namespace ToDoListApp
         {
             ApplicationConfiguration.Initialize();
 
+            Services.AddDbContext<ToDoContext>();
             Services.AddTransient<Form1>();
             Services.AddTransient<AddToDo>();
             Services.AddTransient<ViewToDo>();
-            Services.AddSingleton<ToDoContext>();
             BuildServiceProvider(out Form1 form);
             Application.Run(form);
         }
