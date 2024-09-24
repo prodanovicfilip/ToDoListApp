@@ -15,27 +15,16 @@ namespace ToDoListApp
     {
         private readonly ToDoContext _context;
         private IEnumerable<ToDo> _list;
+        private ToDo _selectedToDo;
         public ViewToDo(ToDoContext context)
         {
             InitializeComponent();
             _context = context;
         }
 
-        private void ViewToDo_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            Program.GetService<Form1>().Show();
-        }
-
         private void ViewToDo_Load(object sender, EventArgs e)
         {
-            _list = _context.GetAll().ToList();
-            if (_context == null)
-            {
-                MessageBox.Show("List empty");
-                return;
-            }
-            GV_List.DataSource = _list;
-            ColorDates();
+            RefreshMe();
         }
 
         private void ColorDates()
@@ -63,11 +52,51 @@ namespace ToDoListApp
         {
             if (string.IsNullOrEmpty(TB_Search.Text))
             {
-                GV_List.DataSource = _list;
-                ColorDates();
+                RefreshMe();
                 return;
             }
             GV_List.DataSource = _list.Where(l => l.Title.Contains(TB_Search.Text) || l.Description.Contains(TB_Search.Text)).ToList();
+            ColorDates();
+        }
+
+        private void TS_Edit_Click(object sender, EventArgs e)
+        {
+            var form = Program.GetService<AddToDo>();
+            form.SetBook(_selectedToDo);
+            form.ShowDialog();
+            RefreshMe();
+        }
+
+        private void TS_Delete_Click(object sender, EventArgs e)
+        {
+            _context.Delete(_selectedToDo.Id);
+            RefreshMe();
+        }
+
+        private void GV_List_MouseDown(object sender, MouseEventArgs e)
+        {
+            switch (e.Button)
+            {
+                case MouseButtons.Right:
+                    {
+                        var hit = GV_List.HitTest(e.X, e.Y);
+                        GV_List.ClearSelection();
+                        GV_List.Rows[hit.RowIndex].Selected = true;
+                        _selectedToDo = _list.ToList()[hit.RowIndex];
+                        CT_Context.Show(this, new Point(e.X, e.Y));
+                    }
+                    break;
+            }
+        }
+        private void RefreshMe()
+        {
+            _list = _context.GetAll().ToList();
+            if (_context == null)
+            {
+                MessageBox.Show("List empty");
+                return;
+            }
+            GV_List.DataSource = _list;
             ColorDates();
         }
     }

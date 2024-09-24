@@ -15,6 +15,14 @@ namespace ToDoListApp.Models
         {
             return ToDoList.ToList();
         }
+        public bool Delete(int id)
+        {
+            if (id <= 0) throw new ArgumentOutOfRangeException();
+            var entity = ToDoList.FirstOrDefault(b => b.Id == id);
+            if (entity == null) throw new Exception();
+            ToDoList.Remove(entity);
+            return this.SaveChanges() > 0;
+        }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=DESKTOP-EBPQHUK;Initial Catalog=ToDoListDB;Integrated Security=SSPI;TrustServerCertificate=True;");

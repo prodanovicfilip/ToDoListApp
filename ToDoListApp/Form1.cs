@@ -10,14 +10,12 @@ namespace ToDoListApp
         private void BT_View_Click(object sender, EventArgs e)
         {
             var form = Program.GetService<ViewToDo>();
-            this.Hide();
             form.ShowDialog();
         }
 
         private void BT_ADD_Click(object sender, EventArgs e)
         {
             var form = Program.GetService<AddToDo>();
-            this.Hide();
             form.ShowDialog();
         }
 

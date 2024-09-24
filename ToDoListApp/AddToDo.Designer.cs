@@ -112,7 +112,6 @@
             MinimumSize = new Size(600, 450);
             Name = "AddToDo";
             Text = "AddToDo";
-            FormClosed += AddToDo_FormClosed;
             ResumeLayout(false);
             PerformLayout();
         }
